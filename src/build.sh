@@ -140,7 +140,7 @@ for branch in ${BRANCH_NAME//,/ }; do
       if [ -d "$path" ]; then
         cd "$path" || exit
         git reset -q --hard
-        git clean -q -fd
+        git clean -q -fdx
         cd "$SRC_DIR/$branch_dir" || exit
       fi
     done

@@ -129,6 +129,12 @@ for branch in ${BRANCH_NAME//,/ }; do
     echo ">> [$(date)] Branch:  $branch"
     echo ">> [$(date)] Devices: $devices"
 
+    if [ "$CLEAN_REPOS" = true ]; then
+      echo ">> [$(date)] Cleaning repos for branch ${branch}"
+      find . -type f -wholename "*/.git/index.lock" -exec rm -f {} \;
+      repo forall -c 'git reset --hard ; git clean -fdx'
+    fi
+
     # Remove previous changes of vendor/cm, vendor/lineage and frameworks/base (if they exist)
     for path in "vendor/cm" "vendor/lineage" "frameworks/base" "packages/apps/PermissionController"; do
       if [ -d "$path" ]; then

@@ -124,12 +124,12 @@ if [ "$build_successful" = true ]; then
                         mkdir -pv /root/factory
                         
                         FACTORY_IMG_PREFIX="${CODENAME_AOSP}-$(tr '[:upper:]' '[:lower:]' <<< ${AOSP_BUILD})-factory"
-                        if [ -n $(find /root/userscripts/ -name "${FACTORY_IMG_PREFIX}*.zip" -type f) ]; then
-                            cp $(find /root/userscripts/ -name "${FACTORY_IMG_PREFIX}*.zip" -type f) /root/factory/
-                        else
+                        if [ -z $(find /root/userscripts/ -name "${FACTORY_IMG_PREFIX}*.zip" -type f) ]; then
                             echo ">> [$(date)] Downloading factory image for ${CODENAME_AOSP}-${AOSP_BUILD}"
                             git clone --depth=1 https://github.com/RattlesnakeOS/android-prepare-vendor.git /root/android-prepare-vendor
                             /root/android-prepare-vendor/scripts/download-nexus-image.sh -d ${CODENAME_AOSP} -b ${AOSP_BUILD} -o /root/factory -y
+                        else
+                            cp $(find /root/userscripts/ -name "${FACTORY_IMG_PREFIX}*.zip" -type f) /root/factory/
                         fi
                         FACTORY_IMG=$(find /root/factory/ -name "${FACTORY_IMG_PREFIX}*.zip" -type f)
                         

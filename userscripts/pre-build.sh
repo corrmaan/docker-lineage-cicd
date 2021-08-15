@@ -54,7 +54,7 @@ if [ "$INCLUDE_PROPRIETARY" = false ]; then
     if [ -f /root/userscripts/${LOS_BUILD_ZIP} ] && [ -f /root/userscripts/${LOS_BUILD_ZIP}.sha256 ]; then
         cp /root/userscripts/${LOS_BUILD_ZIP}* /root/factory/
     else
-        wget -P /root/factory --no-verbose --no-check-certificate "https://lineageos.mirrorhub.io/full/${codename}/${LOS_BUILD_DATE}/${LOS_BUILD_ZIP}"
+        wget -P /root/factory --no-verbose --no-check-certificate "https://mirrorbits.lineageos.org/full/${codename}/${LOS_BUILD_DATE}/${LOS_BUILD_ZIP}"
         curl --output /root/factory/${LOS_BUILD_ZIP}.sha256 "https://mirrorbits.lineageos.org/full/${codename}/${LOS_BUILD_DATE}/${LOS_BUILD_ZIP}?sha256"
         cp -v /root/factory/${LOS_BUILD_ZIP}* /root/userscripts/
     fi
